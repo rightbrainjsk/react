@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// 아래와 같이 type 지정
+interface TList {
+  id: number;
 }
 
-export default App
+function App() {
+  
+  const [list, setList] = useState<TList[]>([
+    {
+      id: 0,
+    },
+    {
+      id: 1,
+    },
+  ]);
+
+  const insertHandler = () => {
+    console.log("insertHandler");
+    const item = {id: list.length}
+    setList([...list, item]);
+  }
+
+  const deletHandler = (id:number) => {
+    console.log("deletHandler");
+    setList(list.filter(item => item.id !== id));
+  };
+
+  return (
+    <div className="App">
+      <div>
+        {/* 목록 */}
+        {list.map((item, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              deletHandler(item.id);
+            }}
+          >
+            {item.id + ":"}
+          </button>
+        ))}
+      </div>
+      {/* 등록 */}
+      <button
+        type="button"
+        onClick={() => {
+          insertHandler();
+        }}
+      >
+        등록
+      </button>
+    </div>
+  );
+}
+
+export default App;
