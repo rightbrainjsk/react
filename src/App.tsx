@@ -1,30 +1,29 @@
 import { useState } from "react";
 import "./App.css";
-
+import { v4 as uuidv4 } from "uuid";
+import Item from "./components/Item";
 
 // 아래와 같이 type 지정
 interface TList {
-  id: number;
+  id: string;
+  message?: string;
 }
 
 function App() {
-  
   const [list, setList] = useState<TList[]>([
     {
-      id: 0,
-    },
-    {
-      id: 1,
+      id: uuidv4(),
     },
   ]);
 
+
   const insertHandler = () => {
     console.log("insertHandler");
-    const item = {id: list.length}
+    const item = { id: uuidv4() };
     setList([...list, item]);
   }
 
-  const deletHandler = (id:number) => {
+  const deletHandler = (id:string) => {
     console.log("deletHandler");
     setList(list.filter(item => item.id !== id));
   };
@@ -34,25 +33,30 @@ function App() {
       <div>
         {/* 목록 */}
         {list.map((item, idx) => (
-          <button
-            key={idx}
-            onClick={() => {
-              deletHandler(item.id);
-            }}
-          >
-            {item.id + ":"}
-          </button>
+          <div key={item.id}>
+            <button
+              onClick={() => {
+                deletHandler(item.id);
+              }}
+            >
+              {idx + ":" + item.id}
+            </button>
+            <Item message="응애1" onClick={()=> console.log('응애에요!') } />
+          </div>
         ))}
       </div>
       {/* 등록 */}
-      <button
-        type="button"
-        onClick={() => {
-          insertHandler();
-        }}
-      >
-        등록
-      </button>
+      <div className="enter">
+        <input type="text" />
+        <button
+          type="button"
+          onClick={() => {
+            insertHandler();
+          }}
+        >
+          등록
+        </button>
+      </div>
     </div>
   );
 }
