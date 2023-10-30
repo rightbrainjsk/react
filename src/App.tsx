@@ -1,20 +1,59 @@
+import Interface1 from "./components/interface/Interface1";
+import Interface2 from "./components/interface/Interface2";
+import Interface3 from "./components/interface/Interface3";
+export interface Iprops {
+  id: string;
+  message?: string;
+}
+const test: Iprops[] = [
+  {
+    id: "1",
+    message: "1번이다",
+  },
+  {
+    id: "2",
+    message: "2번이다",
+  },
+  {
+    id: "3",
+  },
+];
+export type Ipros2 = {
+  id: string;
+  message?: string
+}
+import Type1 from "./components/type/Type1";
+import Style1 from "./components/styled/Style1";
+import Style2 from "./components/styled/Style2";
+import Style3 from "./components/styled/Style3";
+import Style4 from "./components/styled/Style4";
+
 import { useState, useCallback } from "react";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 import Item from "./components/Item";
+import Wrap from "./components/Wrap";
+import Insert from "./components/Insert";
+
+
+
 
 // 아래와 같이 type 지정
-interface TList {
+export interface TList {
   id: string;
   message?: string;
   checked: boolean;
+}
+
+export interface Test {
+  message?: string;
 }
 
 function App() {
   const [list, setList] = useState<TList[]>([
     {
       id: uuidv4(),
-      message: '초기값',
+      message: "초기값",
       checked: false,
     },
   ]);
@@ -29,30 +68,51 @@ function App() {
     console.log("insertHandler");
     const item = { id: uuidv4(), message: value, checked: false };
     setList([...list, item]);
-    setValue('');
-  }
+    setValue("");
+  };
   // 삭제
-  const deletHandler = (id:string) => {
+  const deletHandler = (id: string) => {
     console.log("deletHandler");
-    setList(list.filter(item => item.id !== id));
+    setList(list.filter((item) => item.id !== id));
   };
   // 체크 토글
-  const checkedHandler = (id:string) => {
+  const checkedHandler = (id: string) => {
     setList(
       list.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item 
+        item.id === id ? { ...item, checked: !item.checked } : item
       )
     );
   };
   // 수정
   const editHandler = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
     setList(
-      list.map((item) => (item.id === id ? { ...item, message: e.target.value } : item))
+      list.map((item) =>
+        item.id === id ? { ...item, message: e.target.value } : item
+      )
     );
   };
 
   return (
     <div className="App">
+      {/* interface */}
+      <Interface1 message="props"></Interface1>
+      <Interface1></Interface1>
+      <Interface2 list={test}></Interface2>
+      <Interface3></Interface3>
+      <Type1></Type1>
+      <Style1></Style1>
+      <Style2></Style2>
+      <Style3></Style3>
+      <Style4></Style4>
+
+      <p><a href="https://velog.io/@decody/map-%EC%A0%95%EB%A6%AC" target="_blank">es6문법</a></p>
+      <p>... 병합</p>
+      <p>filter 특정 목록 제거시</p>
+      <p>map 특정값 업데이트</p>
+      <p>useState</p>
+      <p>redux (나에게 허들 높다)</p>
+      <hr />
+
       <div>
         {/* 목록 */}
         {list.map((item) => (
@@ -91,23 +151,10 @@ function App() {
           </div>
         ))}
       </div>
+
+      <Wrap m={"te111st"}></Wrap>
       {/* 등록 */}
-      <div className="enter">
-        <input
-          type="text"
-          onChange={onChange}
-          value={value}
-          placeholder="할 일을 입력하세요"
-        />
-        <button
-          type="button"
-          onClick={() => {
-            insertHandler();
-          }}
-        >
-          등록
-        </button>
-      </div>
+      <Insert value={value} change={onChange} click={insertHandler}></Insert>
     </div>
   );
 }
