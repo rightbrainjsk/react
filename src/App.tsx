@@ -20,13 +20,22 @@ const test: Iprops[] = [
 ];
 export type Ipros2 = {
   id: string;
-  message?: string
-}
+  message?: string;
+};
 import Type1 from "./components/type/Type1";
 import Style1 from "./components/styled/Style1";
 import Style2 from "./components/styled/Style2";
 import Style3 from "./components/styled/Style3";
 import Style4 from "./components/styled/Style4";
+import SpreadOpertor from "./components/es6/SpreadOperator";
+import Map from "./components/es6/Map";
+import Filter from "./components/es6/Filter";
+import Reduce from "./components/es6/Reduce";
+import Concat from "./components/es6/Concat";
+import Pattern from "./components/pattern/Pattern";
+import Mvc from "./components/pattern/Mvc";
+import Flux from "./components/pattern/Flux";
+import Index from "./components/redux/Index";
 
 import { useState, useCallback } from "react";
 import "./App.css";
@@ -34,9 +43,6 @@ import { v4 as uuidv4 } from "uuid";
 import Item from "./components/Item";
 import Wrap from "./components/Wrap";
 import Insert from "./components/Insert";
-
-
-
 
 // 아래와 같이 type 지정
 export interface TList {
@@ -104,12 +110,16 @@ function App() {
       <Style2></Style2>
       <Style3></Style3>
       <Style4></Style4>
-
-      <p><a href="https://velog.io/@decody/map-%EC%A0%95%EB%A6%AC" target="_blank">es6문법</a></p>
-      <p>... 병합</p>
-      <p>filter 특정 목록 제거시</p>
-      <p>map 특정값 업데이트</p>
-      <p>useState</p>
+      <SpreadOpertor></SpreadOpertor>
+      <Map></Map>
+      <Filter></Filter>
+      <Reduce></Reduce>
+      <Concat></Concat>
+      <Pattern></Pattern>
+      <Mvc></Mvc>
+      <Flux></Flux>
+      <Index></Index>
+      <hr />
       <p>redux (나에게 허들 높다)</p>
       <hr />
 
